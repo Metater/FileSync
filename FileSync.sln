@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31005.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileSync", "FileSync\FileSync.csproj", "{B06A0E9A-BC78-4ABF-A9D9-8E945F233E76}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileSyncServer", "FileSyncServer\FileSyncServer.csproj", "{8FCEE756-62EC-401A-8463-61A579E4899F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B06A0E9A-BC78-4ABF-A9D9-8E945F233E76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B06A0E9A-BC78-4ABF-A9D9-8E945F233E76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B06A0E9A-BC78-4ABF-A9D9-8E945F233E76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B06A0E9A-BC78-4ABF-A9D9-8E945F233E76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FCEE756-62EC-401A-8463-61A579E4899F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FCEE756-62EC-401A-8463-61A579E4899F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FCEE756-62EC-401A-8463-61A579E4899F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FCEE756-62EC-401A-8463-61A579E4899F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C527C5E0-1177-4AA8-A3CF-F783A5565CA3}
+	EndGlobalSection
+EndGlobal

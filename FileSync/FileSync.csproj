@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="MetaMitStandard">
+      <HintPath>E:\Projects\Visual Studio\MetaMit\MetaMitStandard\bin\Debug\netstandard2.0\MetaMitStandard.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
