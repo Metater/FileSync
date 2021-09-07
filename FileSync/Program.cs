@@ -10,21 +10,18 @@ namespace FileSync
     {
         static void Main(string[] args)
         {
-            if (args.Length != 1)
-            {
-                Console.WriteLine("[File Sync] No local file path provided properly!");
-                return;
-            }
-            string localPath = args[0];
-            byte[] data = File.ReadAllBytes($@"{Directory.GetCurrentDirectory()}{localPath}");
-            //byte[] data = new byte[]{ 0x00 };
+            string path = args[0];
+            string ip = args[1];
+            int port = int.Parse(args[2]);
+
+            byte[] data = File.ReadAllBytes($@"{Directory.GetCurrentDirectory()}{path}");
             byte[] compressed = Compress(data);
             bool isDone = false;
 
             MetaMitClient client = new MetaMitClient();
             client.Connected += (object sender, MetaMitStandard.Client.ConnectedEventArgs e) =>
             {
-                Console.WriteLine("[File Sync] Connected to server, sending data!");
+                Console.WriteLine($"[File Sync] Connected to server, sending {compressed.Length} bytes!");
                 client.Send(compressed);
             };
             client.DataSent += (object sender, MetaMitStandard.Client.DataSentEventArgs e) =>
@@ -35,7 +32,8 @@ namespace FileSync
             {
                 isDone = true;
             };
-            client.Connect("192.168.1.84", 1744);
+            client.Connect(ip, port);
+
             while (!isDone)
             {
                 client.PollEvents();
