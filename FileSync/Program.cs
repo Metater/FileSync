@@ -38,11 +38,12 @@ namespace FileSync
 
             Stopwatch timeout = new Stopwatch();
             timeout.Start();
-            while (!isDone || timeout.Elapsed.TotalSeconds > 10)
+            while (!isDone || timeout.Elapsed.TotalSeconds < 10)
             {
                 client.PollEvents();
                 Thread.Sleep(20);
             }
+            client.Disconnect();
         }
 
         public static byte[] Compress(byte[] data)
