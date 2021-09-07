@@ -18,13 +18,10 @@ namespace FileSyncServer
             int port = int.Parse(args[2]);
             string script = args[3];
 
-            ConcurrentQueue<string> consoleInputQueue = new ConcurrentQueue<string>();
-
             ProcessStartInfo processInfo = new ProcessStartInfo();
             processInfo.UseShellExecute = false;
             processInfo.FileName = "sh";
             processInfo.Arguments = script;
-            processInfo.RedirectStandardInput = true;
 
             Process process = Process.Start(processInfo);
 
@@ -42,7 +39,7 @@ namespace FileSyncServer
                 Console.WriteLine($"[File Sync] Received file of size {e.data.Length} bytes");
                 byte[] data = Decompress(e.data);
                 File.WriteAllBytes($"{Directory.GetCurrentDirectory()}/{path}", data);
-                process.StandardInput.WriteLine("exit");
+                File.WriteAllText($"{Directory.GetCurrentDirectory()}/quit.req", "");
                 process.WaitForExit();
                 process = Process.Start(processInfo);
             };
@@ -50,31 +47,10 @@ namespace FileSyncServer
             Console.WriteLine($"[File Sync] Listening on: {server.Ep}");
             while (true)
             {
-                Console.In.Peek();
                 if (process.HasExited) break;
-                int queued = consoleInputQueue.Count;
-                for (int i = 0; i < queued; i++)
-                {
-                    if (consoleInputQueue.TryDequeue(out string input))
-                        process.StandardInput.WriteLine(input);
-                    else
-                        break;
-                }
                 server.PollEvents();
                 Thread.Sleep(5);
             }
-        }
-
-        public static void StartConsoleInputThread(ConcurrentQueue<string> consoleInputQueue, CancellationTokenSource cts)
-        {
-            Thread eventPollingThread = new Thread(new ThreadStart(() =>
-            {
-                while (!cts.Token.IsCancellationRequested)
-                {
-                    string input = Console.ReadLine();
-                    consoleInputQueue.Enqueue(input);
-                }
-            }));
         }
 
         public static byte[] Compress(byte[] data)

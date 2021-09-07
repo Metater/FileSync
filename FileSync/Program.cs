@@ -3,6 +3,7 @@ using MetaMitStandard;
 using System.IO.Compression;
 using System.IO;
 using System.Threading;
+using System.Diagnostics;
 
 namespace FileSync
 {
@@ -27,6 +28,7 @@ namespace FileSync
             client.DataSent += (object sender, MetaMitStandard.Client.DataSentEventArgs e) =>
             {
                 client.Disconnect();
+                Console.WriteLine("[File Sync] Done!");
             };
             client.Disconnected += (object sender, MetaMitStandard.Client.DisconnectedEventArgs e) =>
             {
@@ -34,12 +36,13 @@ namespace FileSync
             };
             client.Connect(ip, port);
 
-            while (!isDone)
+            Stopwatch timeout = new Stopwatch();
+            timeout.Start();
+            while (!isDone || timeout.Elapsed.TotalSeconds > 10)
             {
                 client.PollEvents();
                 Thread.Sleep(20);
             }
-            Console.WriteLine("[File Sync] Done!");
         }
 
         public static byte[] Compress(byte[] data)
